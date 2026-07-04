@@ -5,13 +5,13 @@ import { buttonVariants } from "@/components/ui/button";
 const EXPLORER = "https://testnet.cspr.live/transaction/";
 
 const LIFECYCLE = [
-  { step: "create_proposal", who: "execution agent", hash: "5fb00f0b3448b3e054986e693230806293c09cd7a82652eb7a0e3e3a4f21d852" },
-  { step: "approve", who: "treasury agent", hash: "048892e9842cfb693fd4719c865e6b0506e4a22b000aae0a93b614c276608745" },
-  { step: "approve", who: "risk agent", hash: "73c36152e14a7838d8f66535831f8d4527d5eaa0133b88eca8978756aa69388b" },
-  { step: "execute", who: "release TDAO → pool", hash: "a809afb1b7ffded1ff72a9861549157ec1f315b1dd9f6aa0f454955e6f9d877b" },
-  { step: "open_advance", who: "disburse to merchant", hash: "9105bbac46044478bf8a161430e2f70fc2a202e856a6028eec8d87e6d283e0e5" },
-  { step: "repay", who: "sweep #1", hash: "67b736ef14ea2c2c8e683844b2d02d2340fbb347bf4f5a8e5fb296af5f3f5809" },
-  { step: "repay → Repaid", who: "sweep #2 · auto-close", hash: "b1deced00adcfbd2e1442d20ab3fdba80bc6a25daf184a48d66f413349b56495" },
+  { step: "create_proposal", who: "execution agent", hash: "5fb00f0b3448b3e054986e693230806293c09cd7a82652eb7a0e3e3a4f21d852", layer: "TreasuryDAO" },
+  { step: "approve", who: "treasury agent", hash: "048892e9842cfb693fd4719c865e6b0506e4a22b000aae0a93b614c276608745", layer: "TreasuryDAO" },
+  { step: "approve", who: "risk agent", hash: "73c36152e14a7838d8f66535831f8d4527d5eaa0133b88eca8978756aa69388b", layer: "TreasuryDAO" },
+  { step: "execute", who: "release TDAO → pool", hash: "a809afb1b7ffded1ff72a9861549157ec1f315b1dd9f6aa0f454955e6f9d877b", layer: "TreasuryDAO" },
+  { step: "open_advance", who: "disburse to merchant", hash: "9105bbac46044478bf8a161430e2f70fc2a202e856a6028eec8d87e6d283e0e5", layer: "RunwayAdvance" },
+  { step: "repay", who: "sweep #1", hash: "67b736ef14ea2c2c8e683844b2d02d2340fbb347bf4f5a8e5fb296af5f3f5809", layer: "RunwayAdvance" },
+  { step: "repay → Repaid", who: "sweep #2 · auto-close", hash: "b1deced00adcfbd2e1442d20ab3fdba80bc6a25daf184a48d66f413349b56495", layer: "RunwayAdvance" },
 ];
 
 const FLOW = [
@@ -170,6 +170,10 @@ export default function Landing() {
               50 TDAO moved treasury → pool → merchant, then swept back as principal + spread until
               <code className="mx-1 rounded bg-background px-1 text-xs">owed</code> hit zero.
             </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Steps 1–4 run on the <span className="text-primary">TreasuryDAO</span> contract
+              (governance); steps 5–7 on Runway&apos;s own <span className="text-foreground">RunwayAdvance</span> pool.
+            </p>
           </div>
           <ol className="mx-auto mt-8 max-w-2xl space-y-1">
             {LIFECYCLE.map((t, i) => (
@@ -185,7 +189,16 @@ export default function Landing() {
                     <span className="font-medium">{t.step}</span>
                     <span className="text-muted-foreground">· {t.who}</span>
                   </span>
-                  <span className="font-mono text-xs text-primary">{t.hash.slice(0, 10)}…</span>
+                  <span className="flex items-center gap-3">
+                    <span
+                      className={`hidden font-mono text-[10px] uppercase tracking-wide sm:inline ${
+                        t.layer === "TreasuryDAO" ? "text-primary" : "text-muted-foreground"
+                      }`}
+                    >
+                      {t.layer}
+                    </span>
+                    <span className="font-mono text-xs text-primary">{t.hash.slice(0, 10)}…</span>
+                  </span>
                 </a>
               </li>
             ))}

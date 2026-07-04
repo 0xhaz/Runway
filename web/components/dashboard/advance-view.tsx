@@ -20,7 +20,7 @@ function TxRow({ label, hash, kind }: { label: string; hash: string; kind: strin
         <span className="text-muted-foreground">{label}</span>
       </div>
       <a
-        href={`https://testnet.cspr.live/deploy/${hash}`}
+        href={`https://testnet.cspr.live/transaction/${hash}`}
         target="_blank"
         rel="noreferrer"
         className="font-mono text-xs text-primary hover:underline"

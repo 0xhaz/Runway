@@ -4,16 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AssessView } from "@/components/dashboard/assess-view";
 import { AdvanceView } from "@/components/dashboard/advance-view";
 import { PoolView } from "@/components/dashboard/pool-view";
+import { ProofView } from "@/components/dashboard/proof-view";
 import { assess, acceptAdvance, type AssessResponse, type Deliberation } from "@/lib/api";
 import { applyPayment, createAdvance, type SimAdvance } from "@/lib/sim";
 import { shortHash } from "@/lib/format";
 import type { MerchantProfile } from "@/lib/mock";
 import { POOLS, type PoolId } from "@/lib/pools";
+import { WalletConnect } from "@/components/wallet-connect";
+import { OnchainFooter } from "@/components/dashboard/onchain-footer";
 
 export default function Home() {
   const [tab, setTab] = useState("assess");
@@ -113,16 +115,7 @@ export default function Home() {
             revenue is the collateral.
           </p>
         </div>
-        <Button
-          variant="outline"
-          onClick={() =>
-            toast.info("Wallet connection pending", {
-              description: "CSPR.click integration is the Phase 1 wallet spike.",
-            })
-          }
-        >
-          Connect wallet
-        </Button>
+        <WalletConnect />
       </header>
 
       <Tabs value={tab} onValueChange={setTab}>
@@ -135,6 +128,7 @@ export default function Home() {
             )}
           </TabsTrigger>
           <TabsTrigger value="pool">Pool</TabsTrigger>
+          <TabsTrigger value="proof">Proof</TabsTrigger>
         </TabsList>
 
         <TabsContent value="assess" className="mt-6">
@@ -162,7 +156,13 @@ export default function Home() {
         <TabsContent value="pool" className="mt-6">
           <PoolView />
         </TabsContent>
+
+        <TabsContent value="proof" className="mt-6">
+          <ProofView />
+        </TabsContent>
       </Tabs>
+
+      <OnchainFooter />
     </div>
   );
 }

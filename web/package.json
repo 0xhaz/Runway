@@ -10,11 +10,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@runway/shared": "workspace:*",
-    "@runway/indexer": "workspace:*",
-    "@runway/agent": "workspace:*",
-    "@runway/policy": "workspace:*",
     "@base-ui/react": "^1.6.0",
+    "@runway/agent": "workspace:*",
+    "@runway/indexer": "workspace:*",
+    "@runway/policy": "workspace:*",
+    "@runway/shared": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.23.0",
