@@ -1,0 +1,7 @@
+[[contracts]]
+fqn = "runway_advance::RunwayAdvance"
+
+# The demo financing token. Registered so `cargo odra build` emits Cep18.wasm,
+# which the livenet deploy needs to install the token.
+[[contracts]]
+fqn = "odra_modules::cep18_token::Cep18"

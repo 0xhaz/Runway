@@ -1,0 +1,22 @@
+{
+  "name": "@runway/indexer",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "dev": "node --experimental-strip-types src/index.ts",
+    "test": "node --experimental-strip-types --test \"src/**/*.test.ts\""
+  },
+  "dependencies": {
+    "@runway/shared": "workspace:*",
+    "ws": "^8.18.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.12"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

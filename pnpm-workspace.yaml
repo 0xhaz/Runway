@@ -1,0 +1,6 @@
+packages:
+  - "shared"
+  - "indexer"
+  - "agent"
+  - "policy"
+  - "web"

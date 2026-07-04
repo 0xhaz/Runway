@@ -1,0 +1,58 @@
+[package]
+edition = "2021"
+name = "runway_advance"
+version = "0.1.0"
+
+[dependencies]
+odra = { version = "2.8.2", features = [], default-features = false }
+odra-modules = { version = "=2.8.1", features = [], default-features = false }
+# Livenet deploy backend — optional, only compiled for `--features livenet`, so the
+# default wasm build and native tests are unaffected.
+odra-casper-livenet-env = { version = "2.8.1", optional = true }
+
+[features]
+livenet = ["dep:odra-casper-livenet-env"]
+
+[dev-dependencies]
+odra-test = { version = "2.8.2", features = [], default-features = false }
+
+[build-dependencies]
+odra-build = { version = "2.8.2", features = [], default-features = false }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+odra-build = { version = "2.8.2", features = [], default-features = false }
+odra-cli = { version = "2.8.2", features = [], default-features = false }
+
+[[bin]]
+name = "runway_advance_build_contract"
+path = "bin/build_contract.rs"
+test = false
+
+[[bin]]
+name = "runway_advance_build_schema"
+path = "bin/build_schema.rs"
+test = false
+
+[[bin]]
+name = "runway_advance_cli"
+path = "bin/cli.rs"
+test = false
+
+[[bin]]
+name = "deploy"
+path = "bin/deploy.rs"
+required-features = ["livenet"]
+test = false
+
+[[bin]]
+name = "deploy_pool"
+path = "bin/deploy_pool.rs"
+required-features = ["livenet"]
+test = false
+
+[profile.release]
+codegen-units = 1
+lto = true
+
+[profile.dev.package."*"]
+opt-level = 3
