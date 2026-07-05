@@ -25,3 +25,26 @@ export function shortHash(h: string, lead = 6, tail = 4): string {
   if (h.length <= lead + tail + 1) return h;
   return `${h.slice(0, lead)}…${h.slice(-tail)}`;
 }
+
+/**
+ * Break a rationale into readable paragraphs. Honors the model's own blank-line
+ * breaks; if it returned one dense block, groups ~2 sentences per paragraph.
+ */
+export function toParagraphs(text: string): string[] {
+  const byBlank = text
+    .split(/\n{2,}/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (byBlank.length > 1) return byBlank;
+
+  const sentences = text
+    .replace(/\s+/g, " ")
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const paras: string[] = [];
+  for (let i = 0; i < sentences.length; i += 2) {
+    paras.push(sentences.slice(i, i + 2).join(" "));
+  }
+  return paras;
+}

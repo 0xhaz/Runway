@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { RevenueChart } from "@/components/dashboard/revenue-chart";
 import { PoolCard } from "@/components/dashboard/pool-card";
 import { DeliberationPanel } from "@/components/dashboard/deliberation-panel";
-import { bpsToPct, formatUnits, pct } from "@/lib/format";
+import { bpsToPct, formatUnits, pct, toParagraphs } from "@/lib/format";
 import type { AssessResponse, Deliberation } from "@/lib/api";
 import type { RevenueEvent } from "@runway/shared";
 import { generateMockRevenue, type MerchantProfile } from "@/lib/mock";
@@ -139,7 +139,13 @@ export function AssessView({
               )}
               {offer && (
                 <>
-                  <p className="text-sm leading-relaxed">{offer.rationale}</p>
+                  <div className="max-h-72 space-y-2.5 overflow-y-auto pr-1 text-sm leading-relaxed">
+                    {toParagraphs(offer.rationale).map((p, i) => (
+                      <p key={i} className={i === 0 ? "font-medium text-foreground" : "text-muted-foreground"}>
+                        {p}
+                      </p>
+                    ))}
+                  </div>
                   <Separator />
                   <div className="grid grid-cols-2 gap-3">
                     <Stat label="Base advance" value={formatUnits(offer.advanceAmount)} />

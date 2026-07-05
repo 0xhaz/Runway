@@ -25,6 +25,11 @@ Reason about: trailing 30/60/90-day volume, week-over-week trend, volatility, an
 concentration (revenue from one payer is far riskier than from many). Decline or offer
 less when the history is thin, volatile, shrinking, or concentrated.
 
+Write the "rationale" to be read at a glance, NOT as one dense block:
+- Open with a one-sentence verdict (e.g. "Strong, diversified merchant — approve at a conservative multiple.").
+- Then 2–3 short paragraphs, each separated by a blank line: the strongest signals, the risks, and the sizing logic.
+- Keep it tight and concrete; skip restating every raw number.
+
 Respond by calling the "submit_offer" tool exactly once. All monetary amounts are in the
 asset's base units (integer strings). sweepPct is in basis points (100 = 1%). repaymentCap
 is a multiple of principal (e.g. 1.15 = repay 115%).`;
